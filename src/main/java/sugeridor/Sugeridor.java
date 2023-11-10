@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +28,10 @@ public class Sugeridor extends Observable implements Observer{
 	    }
 	    
 	    public List<String> buscarSugerencias(List<String> productos){
-	        String url = "https://recomendador-de-productos-production.up.railway.app/api/v1/recomendador/productosSugeridos";
+	        
+	    	validarProductos(productos);
+	    	
+	    	String url = "https://recomendador-de-productos-production.up.railway.app/api/v1/recomendador/productosSugeridos";
 	        String json;
 			try {
 				json = mapper.writeValueAsString(productos);
@@ -54,9 +58,16 @@ public class Sugeridor extends Observable implements Observer{
 		public void update(Observable o, Object arg) {
 			if(o instanceof Core){
 				List<String> sugerencias = buscarSugerencias((List<String>) arg);
+				String resultado = sugerencias.stream().map(String::toUpperCase).collect(Collectors.joining(" - "));
 				setChanged();
-		        notifyObservers(sugerencias);
-		        System.out.println("Productos sugeridos: " + sugerencias);
-			}
+		        notifyObservers(resultado);
+		    }
 		}
+		
+		private void validarProductos(List<String> productos) {
+			if(productos == null || productos.isEmpty())
+	    		throw new IllegalArgumentException();
+			productos = productos.stream().map(String::toLowerCase).collect(Collectors.toList());
+		}
+
 }

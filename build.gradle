@@ -35,9 +35,10 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     
     // CORE
-	implementation 'com.github.MatiasFretes:Marketcompass-Core:7f5870eb6d'
+	implementation 'com.github.MatiasFretes:Marketcompass-Core:dc29393c6b'
 	
-	testImplementation 'org.mockito:mockito-core:4.0.0'
+	// Mockito
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.18.3'
 	
 }
 
