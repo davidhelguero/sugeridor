@@ -18,10 +18,12 @@ class US4 {
 	private List<String> productos = Arrays.asList("banana");
 	private List<String> productosNulos = null;
 	private List<String> productosSinSugerencias = Arrays.asList("rulemanes");
-	
+
+	private CoreInit coreInit;
+	private Core coreObservado;
+	private String rutaJarCriterio = "src/test/resources/Criterios.jar";
 	private Sugeridor sugeridorMock;
-	private CoreInit coreInit = new CoreInit();
-	private Core coreObservado = coreInit.inicializar();
+	
 	private List<String> sugerencias;
 	private List<String> sugerenciasEsperadas = Arrays.asList("manzana", "zanahoria");
 	
@@ -29,6 +31,10 @@ class US4 {
 	public void setup() {
 		sugeridor = new Sugeridor();
 		sugeridorMock = mock(Sugeridor.class);
+		CoreInit.RUTA_JAR_CRITERIO = rutaJarCriterio;
+	    coreInit = new CoreInit();
+	    coreObservado = coreInit.inicializar();
+	    coreObservado.setCriterio("Distancia");
 	}
 	
 	@Test
