@@ -1,6 +1,6 @@
 package sugeridor;
 
-import java.util.List;
+import java.util.Arrays;
 
 import modelo.Core;
 import modelo.CoreInit;
@@ -15,7 +15,7 @@ public class Main {
 		
 		Sugeridor sugeridor = new Sugeridor();
 		core.addObserver(sugeridor);
-		String recomendacion = core.recomendar(List.of("P2"));
+		String recomendacion = core.recomendar(Arrays.asList("P2"));
 		
 	}
 
