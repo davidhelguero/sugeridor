@@ -37,6 +37,8 @@ dependencies {
     // CORE
 	implementation 'com.github.MatiasFretes:Marketcompass-Core:7f5870eb6d'
 	
+	testImplementation 'org.mockito:mockito-core:4.0.0'
+	
 }
 
 test {
