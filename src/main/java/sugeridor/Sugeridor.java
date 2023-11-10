@@ -8,6 +8,7 @@ import java.util.Observer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import modelo.Core;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -15,11 +16,16 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 @SuppressWarnings("deprecation")
-public class Sugeridor implements Observer{
+public class Sugeridor extends Observable implements Observer{
 	
-		private final OkHttpClient client = new OkHttpClient();
-	    private final ObjectMapper mapper = new ObjectMapper();
-
+		private final OkHttpClient client;
+	    private final ObjectMapper mapper;
+	    
+	    public Sugeridor() {
+	    	this.client = new OkHttpClient();
+	    	this.mapper = new ObjectMapper();
+	    }
+	    
 	    public List<String> buscarSugerencias(List<String> productos){
 	        String url = "https://recomendador-de-productos-production.up.railway.app/api/v1/recomendador/productosSugeridos";
 	        String json;
@@ -41,11 +47,16 @@ public class Sugeridor implements Observer{
 	        	return null;
 	        }
 	    
-    }
+	    }
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void update(Observable o, Object arg) {
-			//if(o instanceof Core)
-			
+			if(o instanceof Core){
+				List<String> sugerencias = buscarSugerencias((List<String>) arg);
+				setChanged();
+		        notifyObservers(sugerencias);
+		        System.out.println("Productos sugeridos: " + sugerencias);
+			}
 		}
 }
