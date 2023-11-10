@@ -26,8 +26,8 @@ dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:28.2-jre'
 
-    // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+    // Use JUnit5 test framework
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.0'
     
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
     
@@ -35,7 +35,15 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     
     // CORE
-	//implementation 'com.github.MatiasFretes:Marketcompass-Core:c4526e02af'
 	implementation 'com.github.MatiasFretes:Marketcompass-Core:7f5870eb6d'
 	
+}
+
+test {
+    useJUnitPlatform() // Use JUnit 5 platform for running tests.
+    
+    reports {
+        junitXml.enabled = true
+        junitXml.destination = file("$buildDir/test-results/test")
+    }
 }
