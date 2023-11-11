@@ -15,7 +15,7 @@ public class Main {
 		
 		Sugeridor sugeridor = new Sugeridor();
 		core.addObserver(sugeridor);
-		String recomendacion = core.recomendar(Arrays.asList("P2"));
+		String recomendacion = core.recomendar(Arrays.asList("Manzana"));
 		
 	}
 

@@ -16,7 +16,6 @@ class US4 {
 	
 	private Sugeridor sugeridor;
 	private List<String> productos = Arrays.asList("banana");
-	private List<String> productosNulos = null;
 	private List<String> productosSinSugerencias = Arrays.asList("rulemanes");
 
 	private CoreInit coreInit;
@@ -24,7 +23,7 @@ class US4 {
 	private String rutaJarCriterio = "src/test/resources/Criterios.jar";
 	private Sugeridor sugeridorMock;
 	
-	private List<String> sugerencias;
+	private List<String> sugerenciasObtenidas;
 	private List<String> sugerenciasEsperadas = Arrays.asList("manzana", "zanahoria");
 	
 	@BeforeEach 
@@ -39,7 +38,7 @@ class US4 {
 	
 	@Test
 	public void CA1_ProductosDelUsuarioNulos() {
-		assertThrows(IllegalArgumentException.class, () -> {sugeridor.buscarSugerencias(productosNulos);});
+		assertThrows(IllegalArgumentException.class, () -> {sugeridor.buscarSugerencias(null);});
 	}
 	
 	@Test
@@ -50,10 +49,10 @@ class US4 {
 	@Test
 	public void CA3_SugerenciasEncontradasALosProductosDelUsuario() {
 		
-		sugerencias = sugeridor.buscarSugerencias(productos);
+		sugerenciasObtenidas = sugeridor.buscarSugerencias(productos);
 		Collections.sort(sugerenciasEsperadas);
-		Collections.sort(sugerencias);
-		assertEquals(sugerenciasEsperadas, sugerencias);
+		Collections.sort(sugerenciasObtenidas);
+		assertEquals(sugerenciasEsperadas, sugerenciasObtenidas);
 	}
 	
 	@Test
